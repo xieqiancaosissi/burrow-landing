@@ -52,7 +52,7 @@ const NAVIGATIONS = [
 const ICONS = [
   {
     svg: assets.svg.twitter,
-    to: 'https://twitter.com/burrowcash',
+    to: 'https://twitter.com/burrow_finance',
     target: '_blank',
   },
   // {
@@ -67,7 +67,7 @@ const ICONS = [
   },
   {
     svg: assets.svg.medium,
-    to: 'https://burrowcash.medium.com/',
+    to: 'https://burrowfinance.medium.com',
     target: '_blank',
   },
 ];
