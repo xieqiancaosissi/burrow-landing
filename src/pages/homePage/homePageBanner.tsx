@@ -20,7 +20,7 @@ const HomePageBanner = () => {
   useEffect(() => {
     console.log('sw.current', swiperRef.current);
     console.log('br?.current', brrLottieRef?.current);
-    if(swiperRef?.current?.autoplay){
+    if (swiperRef?.current?.autoplay) {
       console.log('st', swiperRef?.current?.autoplay.start);
       swiperRef?.current?.autoplay.start();
       brrLottieRef?.current?.play();
@@ -29,9 +29,11 @@ const HomePageBanner = () => {
 
   const handleSwiperChange = (a: any) => {
     console.log('i', a?.realIndex);
-    console.log("sref",swiperRef?.current)
-    if (!swiperRef?.current?.autoplay?.running) {
-      console.log("autoplay")
+    console.log('sref', swiperRef?.current?.autoplay?.running, swiperRef?.current?.autoplay?.paused);
+    if (!swiperRef?.current?.autoplay?.paused) {
+      swiperRef?.current?.autoplay.resume();
+    } else if (!swiperRef?.current?.autoplay?.running) {
+      console.log('autoplay');
       swiperRef?.current?.autoplay.start();
     }
     switch (a?.realIndex) {
