@@ -7,7 +7,7 @@ import { EffectFade, Autoplay } from 'swiper/modules';
 import assets from '../../components/assets';
 import Image from '../../components/image';
 import SwiperClass from 'swiper';
-
+SwiperClass.use([Autoplay]);
 const HomePageBanner = () => {
   const brrLottieRef = useRef<LottieRefCurrentProps>() as any;
   const tokenLottieRef = useRef<LottieRefCurrentProps>() as any;
@@ -30,9 +30,10 @@ const HomePageBanner = () => {
   const handleSwiperChange = (a: any) => {
     console.log('i', a?.realIndex);
     console.log("sref",swiperRef?.current)
-    // if (!swiperRef?.current?.autoplay?.running) {
-    //   swiperRef?.current?.autoplay.start();
-    // }
+    if (!swiperRef?.current?.autoplay?.running) {
+      console.log("autoplay")
+      swiperRef?.current?.autoplay.start();
+    }
     switch (a?.realIndex) {
       case 0:
         tokenLottieRef?.current?.stop();
