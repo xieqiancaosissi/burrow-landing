@@ -7,21 +7,23 @@ import { EffectFade, Autoplay } from 'swiper/modules';
 import assets from '../../components/assets';
 import Image from '../../components/image';
 import SwiperClass from 'swiper';
+
 SwiperClass.use([Autoplay]);
 const HomePageBanner = () => {
+  const [swiperAutoPlay, setSwiperAutoPlay] = useState(false);
   const brrLottieRef = useRef<LottieRefCurrentProps>() as any;
   const tokenLottieRef = useRef<LottieRefCurrentProps>() as any;
   const swiperRef = React.useRef<SwiperClass>();
 
   const handleSwiperInit = (Swiper: SwiperClass) => {
+    console.log('oninit');
     swiperRef.current = Swiper;
   };
 
   useEffect(() => {
     console.log('sw.current', swiperRef.current);
-    console.log('br?.current', brrLottieRef?.current);
     if (swiperRef?.current?.autoplay) {
-      console.log('st', swiperRef?.current?.autoplay.start);
+      setSwiperAutoPlay(true);
       swiperRef?.current?.autoplay.start();
       brrLottieRef?.current?.play();
     }
@@ -29,12 +31,13 @@ const HomePageBanner = () => {
 
   const handleSwiperChange = (a: any) => {
     console.log('i', a?.realIndex);
-    console.log('sref', swiperRef?.current?.autoplay?.running, swiperRef?.current?.autoplay?.paused);
-    if (!swiperRef?.current?.autoplay?.paused) {
-      swiperRef?.current?.autoplay.resume();
-    } else if (!swiperRef?.current?.autoplay?.running) {
-      console.log('autoplay');
+    console.log('sref', swiperRef?.current?.autoplay, swiperRef?.current?.autoplay?.running, swiperRef?.current?.autoplay?.paused);
+    if (!swiperRef?.current?.autoplay?.running) {
+      console.log('reauto');
       swiperRef?.current?.autoplay.start();
+    } else {
+      console.log('resume');
+      swiperRef?.current?.autoplay.resume();
     }
     switch (a?.realIndex) {
       case 0:
@@ -44,82 +47,81 @@ const HomePageBanner = () => {
       case 1:
         brrLottieRef?.current?.stop();
         tokenLottieRef?.current?.play();
-        console.log('1ref', brrLottieRef);
-        console.log('2ref', tokenLottieRef);
     }
   };
 
   return (
     <>
-      <button style={{display:'none'}} onClick={()=>{
-        console.log('test ',swiperRef)
-        setTimeout(()=>{
-          swiperRef?.current?.autoplay.start()
-          console.log('test2 ',swiperRef)
-        },1000)
-      }}>test</button>
-    <Swiper
-      spaceBetween={30}
-      effect={'fade'}
-      onInit={handleSwiperInit}
-      loop={true}
-      autoplay={false}
-      allowTouchMove={false}
-      preventInteractionOnTransition={true}
-      fadeEffect={{
-        crossFade: true,
-      }}
-      onSlideChange={handleSwiperChange}
-      modules={[EffectFade, Autoplay]}
-      className="animate-swiper"
-    >
-      <SwiperSlide data-swiper-autoplay="2720">
-        <div className={`md:flex mb-10 animate-banner pt-10 md:pt-0`}>
-          <div className={`md:flex md:flex-row-reverse`}>
-            <div className={`justify-center flex flex-col items-center md:flex-row-reverse`}>
-              <div className={'animate-text'}>
-                <Brrr />
-              </div>
-              <div className={`animate-lottie`}>
-                <Lottie
-                  animationData={brrLottie}
-                  loop={false}
-                  autoplay={false}
-                  rendererSettings={{ preserveAspectRatio: 'xMidYMid slice' }}
-                  height={495}
-                  width={825}
-                  lottieRef={brrLottieRef}
-                />
+      <button onClick={() => {
+        console.log('test ', swiperRef);
+        setTimeout(() => {
+          swiperRef?.current?.autoplay.start();
+          console.log('test2 ', swiperRef);
+        }, 1000);
+      }}>test
+      </button>
+      <Swiper
+        spaceBetween={30}
+        effect={'fade'}
+        onInit={handleSwiperInit}
+        loop={true}
+        autoplay={swiperAutoPlay}
+        allowTouchMove={false}
+        preventInteractionOnTransition={true}
+        fadeEffect={{
+          crossFade: true
+        }}
+        onSlideChange={handleSwiperChange}
+        modules={[EffectFade, Autoplay]}
+        className='animate-swiper'
+      >
+        <SwiperSlide data-swiper-autoplay='2720'>
+          <div className={`md:flex mb-10 animate-banner pt-10 md:pt-0`}>
+            <div className={`md:flex md:flex-row-reverse`}>
+              <div className={`justify-center flex flex-col items-center md:flex-row-reverse`}>
+                <div className={'animate-text'}>
+                  <Brrr />
+                </div>
+                <div className={`animate-lottie`}>
+                  <Lottie
+                    animationData={brrLottie}
+                    loop={false}
+                    autoplay={false}
+                    rendererSettings={{ preserveAspectRatio: 'xMidYMid slice' }}
+                    height={495}
+                    width={825}
+                    lottieRef={brrLottieRef}
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </SwiperSlide>
+        </SwiperSlide>
 
-      <SwiperSlide data-swiper-autoplay="5250">
-        <div className={`md:flex mb-10 animate-banner pt-10 md:pt-0`}>
-          <div className={`md:flex md:flex-row-reverse`}>
-            <div className={`justify-center flex flex-col items-center md:flex-row-reverse`}>
-              <div className={'animate-text'}>
-                <TokensText />
-              </div>
-              <div className={`animate-lottie`}>
-                <Lottie
-                  animationData={tokenLottie}
-                  loop={false}
-                  autoplay={false}
-                  rendererSettings={{ preserveAspectRatio: 'xMidYMid slice' }}
-                  height={495}
-                  width={825}
-                  lottieRef={tokenLottieRef}
-                />
+        <SwiperSlide data-swiper-autoplay='5250'>
+          <div className={`md:flex mb-10 animate-banner pt-10 md:pt-0`}>
+            <div className={`md:flex md:flex-row-reverse`}>
+              <div className={`justify-center flex flex-col items-center md:flex-row-reverse`}>
+                <div className={'animate-text'}>
+                  <TokensText />
+                </div>
+                <div className={`animate-lottie`}>
+                  <Lottie
+                    animationData={tokenLottie}
+                    loop={false}
+                    autoplay={false}
+                    rendererSettings={{ preserveAspectRatio: 'xMidYMid slice' }}
+                    height={495}
+                    width={825}
+                    lottieRef={tokenLottieRef}
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </SwiperSlide>
-    </Swiper>
-      </>
+        </SwiperSlide>
+      </Swiper>
+    </>
   );
 };
 
