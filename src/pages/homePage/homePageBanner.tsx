@@ -28,6 +28,7 @@ const HomePageBanner = () => {
 
   const handleSwiperChange = (a: any) => {
     console.log('i', a?.realIndex);
+    console.log("sref",swiperRef?.current)
     switch (a?.realIndex) {
       case 0:
         tokenLottieRef?.current?.stop();
