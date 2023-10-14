@@ -18,20 +18,21 @@ const HomePageBanner = () => {
   };
 
   useEffect(() => {
-    console.log('swiperRef.current', swiperRef.current);
-    console.log('brrLottieRef?.current', brrLottieRef?.current);
-    if (!swiperRef?.current?.autoplay?.running) {
+    console.log('sw.current', swiperRef.current);
+    console.log('br?.current', brrLottieRef?.current);
+    if(swiperRef?.current?.initialized){
+      console.log('st', swiperRef?.current?.autoplay.start);
       swiperRef?.current?.autoplay.start();
+      brrLottieRef?.current?.play();
     }
-    brrLottieRef?.current?.play();
   }, [swiperRef?.current]);
 
   const handleSwiperChange = (a: any) => {
     console.log('i', a?.realIndex);
     console.log("sref",swiperRef?.current)
-    if (!swiperRef?.current?.autoplay?.running) {
-      swiperRef?.current?.autoplay.start();
-    }
+    // if (!swiperRef?.current?.autoplay?.running) {
+    //   swiperRef?.current?.autoplay.start();
+    // }
     switch (a?.realIndex) {
       case 0:
         tokenLottieRef?.current?.stop();
@@ -46,6 +47,14 @@ const HomePageBanner = () => {
   };
 
   return (
+    <>
+      <button style={{display:'none'}} onClick={()=>{
+        console.log('test ',swiperRef)
+        setTimeout(()=>{
+          swiperRef?.current?.autoplay.start()
+          console.log('test2 ',swiperRef)
+        },1000)
+      }}>test</button>
     <Swiper
       spaceBetween={30}
       effect={'fade'}
@@ -68,7 +77,6 @@ const HomePageBanner = () => {
               <div className={'animate-text'}>
                 <Brrr />
               </div>
-
               <div className={`animate-lottie`}>
                 <Lottie
                   animationData={brrLottie}
@@ -108,6 +116,7 @@ const HomePageBanner = () => {
         </div>
       </SwiperSlide>
     </Swiper>
+      </>
   );
 };
 
