@@ -20,7 +20,7 @@ const HomePageBanner = () => {
   useEffect(() => {
     console.log('sw.current', swiperRef.current);
     console.log('br?.current', brrLottieRef?.current);
-    if(swiperRef?.current?.initialized){
+    if(swiperRef?.current?.autoplay){
       console.log('st', swiperRef?.current?.autoplay.start);
       swiperRef?.current?.autoplay.start();
       brrLottieRef?.current?.play();
