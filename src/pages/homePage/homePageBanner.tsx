@@ -29,6 +29,9 @@ const HomePageBanner = () => {
   const handleSwiperChange = (a: any) => {
     console.log('i', a?.realIndex);
     console.log("sref",swiperRef?.current)
+    if (!swiperRef?.current?.autoplay?.running) {
+      swiperRef?.current?.autoplay.start();
+    }
     switch (a?.realIndex) {
       case 0:
         tokenLottieRef?.current?.stop();
