@@ -18,31 +18,50 @@ const HomePageBanner = () => {
   const handleSwiperInit = (Swiper: SwiperClass) => {
     swiperRef.current = Swiper;
   };
-
   useEffect(() => {
-    if (swiperRef?.current?.autoplay) {
-      setSwiperAutoPlay(true);
-      swiperRef?.current?.autoplay.start();
+    console.log('lc', brrLottieRef?.current);
+    if (brrLottieRef?.current) {
       brrLottieRef?.current?.play();
     }
-  }, [swiperRef?.current]);
+  }, [brrLottieRef?.current]);
+  // useEffect(() => {
+  //   if (swiperRef?.current?.autoplay) {
+  //     setSwiperAutoPlay(true);
+  //     swiperRef?.current?.autoplay.start();
+  //     brrLottieRef?.current?.play();
+  //   }
+  // }, [swiperRef?.current]);
 
   const handleSwiperChange = (a: any) => {
-    console.log('sref', a?.realIndex, swiperRef?.current?.autoplay, swiperRef?.current?.autoplay?.running, swiperRef?.current?.autoplay?.paused);
-    if (!swiperRef?.current?.autoplay?.running) {
-      swiperRef?.current?.autoplay.start();
-    } else {
-      swiperRef?.current?.autoplay.resume();
-    }
-    switch (a?.realIndex) {
-      case 0:
-        tokenLottieRef?.current?.stop();
-        brrLottieRef?.current?.play();
-        break;
-      case 1:
-        brrLottieRef?.current?.stop();
-        tokenLottieRef?.current?.play();
-    }
+    // console.log('sref', a?.realIndex, swiperRef?.current?.autoplay, swiperRef?.current?.autoplay?.running, swiperRef?.current?.autoplay?.paused);
+    // if (!swiperRef?.current?.autoplay?.running) {
+    //   swiperRef?.current?.autoplay.start();
+    // } else {
+    //   swiperRef?.current?.autoplay.resume();
+    // }
+    // switch (a?.realIndex) {
+    //   case 0:
+    //     tokenLottieRef?.current?.stop();
+    //     brrLottieRef?.current?.play();
+    //     break;
+    //   case 1:
+    //     brrLottieRef?.current?.stop();
+    //     tokenLottieRef?.current?.play();
+    // }
+  };
+
+  const handleBrrrLottyComplete = () => {
+    console.log('1Complete ');
+    brrLottieRef?.current?.stop();
+    swiperRef?.current?.slideNext();
+    tokenLottieRef?.current?.play();
+  };
+
+  const handleTokenLottyComplete = () => {
+    console.log('2Complete ');
+    tokenLottieRef?.current?.stop();
+    swiperRef?.current?.slideNext();
+    brrLottieRef?.current?.play();
   };
 
   return (
@@ -57,7 +76,7 @@ const HomePageBanner = () => {
       fadeEffect={{
         crossFade: true
       }}
-      onSlideChange={handleSwiperChange}
+      // onSlideChange={handleSwiperChange}
       modules={[EffectFade, Autoplay]}
       className='animate-swiper'
     >
@@ -71,6 +90,7 @@ const HomePageBanner = () => {
               <div className={`animate-lottie`}>
                 <Lottie
                   animationData={brrLottie}
+                  onComplete={handleBrrrLottyComplete}
                   loop={false}
                   autoplay={false}
                   rendererSettings={{ preserveAspectRatio: 'xMidYMid slice' }}
@@ -94,6 +114,7 @@ const HomePageBanner = () => {
               <div className={`animate-lottie`}>
                 <Lottie
                   animationData={tokenLottie}
+                  onComplete={handleTokenLottyComplete}
                   loop={false}
                   autoplay={false}
                   rendererSettings={{ preserveAspectRatio: 'xMidYMid slice' }}
