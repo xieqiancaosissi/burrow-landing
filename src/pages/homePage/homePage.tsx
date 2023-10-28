@@ -6,12 +6,24 @@ import { BaseProps } from '../../interfaces/interfaces';
 import HomePageRoadMap from './homePageRoadMap';
 import HomePageArticles from './homePageArticles';
 import HomePageYield from './homePageYield';
-import HomePageBanner from './homePageBanner';
+// @ts-ignore
+const HomePageBanner = React.lazy(() => import('./homePageBanner.tsx'));
+
+const BannerPlaceholder = () => {
+  return (
+    <div className={"flex justify-center items-center"} style={{ height: 558 }}>
+      Loading...
+    </div>
+  );
+};
+
 
 const HomePage = (props: BaseProps) => {
   return (
     <LayoutContainer className={'home-page'}>
-      <HomePageBanner />
+      <React.Suspense fallback={<BannerPlaceholder/>}>
+        <HomePageBanner />
+      </React.Suspense>
       <Section>
         <HomePageYield />
       </Section>
