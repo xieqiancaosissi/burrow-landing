@@ -43,7 +43,7 @@ class DataSource {
   }
 
   getBurrowData() {
-    return this.callAPI(`/get-burrow-data`, 'GET', null, null, config?.internalApi);
+    return this.callAPI(`/get_burrow_data`, 'GET', null, null, config?.internalApi);
   }
 }
 
