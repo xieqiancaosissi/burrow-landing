@@ -7,7 +7,13 @@ import React from 'react';
 import { ArrowRightIcon } from '../../components/svgIcon';
 import { Link } from 'react-router-dom';
 
-const HomePageYield = ({ children }: BaseProps) => {
+interface Props extends BaseProps {
+  burrowData: any;
+}
+
+const HomePageYield = ({ children, burrowData }: Props) => {
+  const { yield_apy, yield_apy_up_to, total_supplied } = burrowData || {};
+
   const handleSupplyBorrowClick = () => {
     window.location.href = 'https://app.burrow.finance';
   };
@@ -31,7 +37,7 @@ const HomePageYield = ({ children }: BaseProps) => {
     <div className={'lg:grid gap-5 grid-cols-2 homepage-yield'}>
       <Box1
         text1={'Market Size'}
-        text2={'$19,629,208'}
+        text2={total_supplied || ''}
         text3={'The first money market on NEAR native, bring more liquidity and DeFi compatibility'}
       >
         <div className={'flex xs:gap-5 justify-between xs:justify-start'}>
@@ -59,7 +65,7 @@ const HomePageYield = ({ children }: BaseProps) => {
         </div>
       </Box1>
 
-      <Box2 text1={'Yield APY'} text2={'1.21%'}>
+      <Box2 text1={'Yield APY'} text2={yield_apy || ''}>
         <Image src={assets.svg.svgNear} />
 
         <Link
@@ -76,7 +82,7 @@ const HomePageYield = ({ children }: BaseProps) => {
         </Link>
       </Box2>
 
-      <Box2 text1={'Yield APY up to'} text2={'9.58%'}>
+      <Box2 text1={'Yield APY up to'} text2={yield_apy_up_to || ''}>
         <div className={'flex'}>
           <Image src={assets.svg.svgUsd} className={'-mx-2'} />
           <Image src={assets.svg.svgUsdt} className={'-mx-2 relative z-10'} />
