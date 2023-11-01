@@ -7,7 +7,11 @@ import React from 'react';
 import { ArrowRightIcon } from '../../components/svgIcon';
 import { Link } from 'react-router-dom';
 
-const HomePageYield = ({ children, burrowData }: BaseProps) => {
+interface Props extends BaseProps {
+  burrowData: any;
+}
+
+const HomePageYield = ({ children, burrowData }: Props) => {
   const { yield_apy, yield_apy_up_to, total_supplied } = burrowData || {};
 
   const handleSupplyBorrowClick = () => {

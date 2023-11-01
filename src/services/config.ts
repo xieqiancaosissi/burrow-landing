@@ -1,5 +1,5 @@
 export const defaultNetwork = 'mainnet';
-export const getConfig = (env) => {
+export const getConfig = (env = defaultNetwork) => {
   switch (env) {
     case 'production':
     case 'mainnet':
